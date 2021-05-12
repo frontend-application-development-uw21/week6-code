@@ -1,8 +1,8 @@
 import React from 'react';
-import firebase from 'firebase';
 import { Link } from 'react-router-dom';
-
-const db = firebase.firestore();
+import AddJournalEntry from './AddJournalEntry';
+import DeleteButton from './DeleteButton';
+import db from '../firebase/db';
 
 export default class Journal extends React.Component {
     state = {
@@ -49,6 +49,7 @@ export default class Journal extends React.Component {
             .map(entry => {
                 return (
                     <li key={entry.id}>
+                        <DeleteButton id={entry.id} />
                         <Link to={`/journal/${entry.id}`}>
                             {entry.entry}
                         </Link>
@@ -59,6 +60,7 @@ export default class Journal extends React.Component {
         return (
             <div>
                 <h1>Journal</h1>
+                <AddJournalEntry />
                 <ul>
                     {journalEntries}
                 </ul>
